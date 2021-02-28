@@ -32,7 +32,9 @@ export class CampeonComponent implements OnInit {
   //hay que importar la clase Campeon de "./models/campeon.model";
   //enviar o borrar datos estaticos (LISTADO_CAMPEONES) a Firebase
   public enviarDatos: boolean = false;
+  public mostrarEnviar: boolean = true;
   public borrarDatos: boolean = false;
+  public mostrarFormatear: boolean = false;
   //hay que leer los campeones de la constante --> LISTADO_CAMPEONES
   public listado_nombres: any = LISTADO_CAMPEONES;
   public total_nombres: number = LISTADO_CAMPEONES.length;
@@ -90,6 +92,11 @@ export class CampeonComponent implements OnInit {
         });
       });
     });
+    if (this.campeones.length>0){
+          this.mostrarEnviar = true;
+    this.mostrarFormatear = false;
+
+    }
   }
 
   //A. Este metodo cambia a true el booleano y envia los datos ESTATICOS a firebase
@@ -101,6 +108,8 @@ export class CampeonComponent implements OnInit {
       this.enviarDatos = false;
       console.log("ya no se envian datos.");
     }
+    this.mostrarEnviar = false;
+    this.mostrarFormatear = true;
   }
 
   //B. Este metodo cambia a true el booleano y elimina datos enviados por A. pero que se encuentran en this.campeones
@@ -114,6 +123,8 @@ export class CampeonComponent implements OnInit {
       console.log("ya no se eliminan datos.");
       this.lecturaDatosFirebase();
     }
+    this.mostrarEnviar = true;
+    this.mostrarFormatear = false;
   }
 
   public newCampeon(form, documentId = this.documentId) {

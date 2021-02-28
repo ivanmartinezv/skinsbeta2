@@ -37,7 +37,7 @@ export class CampeonService {
     console.log("campeones[1] tiene id y data? ?:", campeones[1]);
     console.log("campeones[2] tiene id y data? ?:", campeones[2]);
     for (let i = 0; i < campeones.length; i++) {
-      if (i < 4) {
+      if (i < 5) {
         console.log("nombre a borrar: ", campeones[i].data.nombre);
         console.log("id a borrar: ", campeones[i].id);
       }
