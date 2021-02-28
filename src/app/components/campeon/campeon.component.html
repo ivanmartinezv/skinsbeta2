@@ -1,0 +1,119 @@
+<button class="btn--red btn--s btn2" (click)="enviarDatosBDD()">
+  Enviar datos
+</button>
+<button class="btn--red btn--s btn2" (click)="formatearBDD()">
+  Formatear
+</button>
+
+<div class="grd">
+	<div class="grd-row">
+		<div class="grd-row-col-2">
+			<h3>Campeones</h3>
+			<form (ngSubmit)="newCampeon(newCampeonForm.value)" [formGroup]="newCampeonForm">
+				<div class="form-group"><input type="hidden" formControlName="id" />
+					<label for="nombre">Nombre del campeon:</label>
+					<input type="text" formControlName="nombre" />
+					<br>
+					<label for="url_img">Imagen del campeon:</label>
+					<input type="url" formControlName="url" />
+					<br>
+					<input
+          type="submit"
+          class="btn--blue btn--add"
+          [disabled]="!newCampeonForm.valid"
+          value="Agregar campeon"
+        />
+				</div>
+			</form>
+		</div>
+		<div class="grd-row-col-4">
+			<div class="campeones_container">
+				<div class="media" *ngFor="let campeon of campeones">
+					<!--<div class="media-figure">
+						<img [src]="campeon.data.url" />
+          </div>-->
+					<div class="media-body">
+						<p>{{campeon.data.nombre}}</p>
+						<div class="btn--group">
+							<button
+                class="btn--green btn--s btn1"
+                (click)="editCampeon(campeon.id)"
+              >
+                Editar
+              </button>
+							<button
+                class="btn--red btn--s btn2"
+                (click)="deleteCampeon(campeon.id)"
+              >
+                Eliminar
+              </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<h2>{{titulo}}</h2>
+				<p>RESUMEN:
+					Total Aspectos (registrados): {{total_aspectos}} //
+					Total obtenibles: {{total_obtenibles}} //
+					Total en posesión: {{total_posesion}} //
+					Total en botín: {{total_botin}}
+				</p>
+				<div *ngFor="let campeon of campeones; let i=index">
+					<h3> {{campeon.id}}.- {{campeon.nombre}} </h3>
+					<h4>Total aspectos: {{campeon.aspectos.length}} || Obtenibles:
+						{{campeon.cont_obtenible}} || En posesión: {{campeon.cont_posesion}} || En botín:
+						{{campeon.cont_botin}}</h4>
+					<!--{{campeones[i].nombre}} - {{campeones[i].aspectos[0].nombre_aspecto}}-->
+<!--<table border="1">
+						<thead>
+							<tr>
+								<th width="30">N°</th>
+								<th width="250">Nombre aspecto</th>
+								<th width="80">Tipo</th>
+								<th width="60">Precio</th>
+								<th>Obtenible?</th>
+								<th>Posesión?</th>
+								<th>Botin?</th>
+							</tr>
+						</thead>
+						<tbody *ngFor="let aspecto of campeon.aspectos; let j=index">
+							<tr>
+								<td>{{j+1}}</td>
+								<td>{{aspecto.nombre_aspecto}}</td>
+								<td>{{aspecto.tipo}}</td>
+								<td>{{aspecto.precio}}</td>
+								<td>
+									<b *ngIf="aspecto.obtenible">Si</b>
+									<b *ngIf="!aspecto.obtenible">No</b>
+								</td>
+								<td>
+									<b *ngIf="aspecto.posesion">Si</b>
+									<b *ngIf="!aspecto.posesion">No</b>
+								<td>
+									<b *ngIf="aspecto.botin">Si</b>
+									<b *ngIf="!aspecto.botin">No</b>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h2>Resumen de aspectos (I)</h2>
+				yoyoyoyo
+			</div>
+			<div class="col-md-2">
+				<h2>Resumen de aspectos (II)</h2>
+				yoyoyoyo
+			</div>
+		</div>
+	</div>-->
