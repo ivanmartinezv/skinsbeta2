@@ -76,18 +76,23 @@ export class CampeonComponent implements OnInit {
   ngOnInit() {
     console.log("hola oninit");
     //el ngOnInit es el que invoca al servicio para LEER datos de BDD
+    this.lecturaDatosFirebase();
+  }
+
+  //Alfa. Cargar datos en la variables campeones[]
+  lecturaDatosFirebase() {
     this._campeonService.getCampeones().subscribe(campeonesSnapshot => {
       this.campeones = [];
       campeonesSnapshot.forEach((campeonData: any) => {
         this.campeones.push({
-          id: campeonData.payload.doc.id,
-          data: campeonData.payload.doc.data()
+          id: campeonData.payload.doc.id, //documentId del documento
+          data: campeonData.payload.doc.data() //datos del data
         });
       });
     });
   }
 
-  //A. Este metodo cambia a true el booleano y envia los datos estaticos a firebase
+  //A. Este metodo cambia a true el booleano y envia los datos ESTATICOS a firebase
   enviarDatosBDD() {
     this.enviarDatos = true;
     console.log("listado_nombres: ", this.listado_nombres.length);
@@ -98,15 +103,16 @@ export class CampeonComponent implements OnInit {
     }
   }
 
-  //B. Este metodo cambia a true el booleano y elimina datos enviados por A.
+  //B. Este metodo cambia a true el booleano y elimina datos enviados por A. pero que se encuentran en this.campeones
   formatearBDD() {
     this.borrarDatos = true;
     console.log("formateando BDD");
     if (this.borrarDatos) {
-      //console.log("que estoy enviando??", this.listado_nombres);
-      this._campeonService.formatearBDD(this.listado_nombres);
+      console.log("que estoy enviando??", this.campeones);
+      this._campeonService.formatearBDD(this.campeones);
       this.enviarDatos = false;
       console.log("ya no se eliminan datos.");
+      this.lecturaDatosFirebase();
     }
   }
 
@@ -170,6 +176,7 @@ export class CampeonComponent implements OnInit {
   }
 
   public deleteCampeon(documentId) {
+    console.log("se eliminara el doc_id: ", documentId);
     this._campeonService.deleteCampeon(documentId).then(
       () => {
         console.log("Documento eliminado!");
