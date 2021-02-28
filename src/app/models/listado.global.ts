@@ -299,7 +299,7 @@ export const LISTADO_ASPECTOS = [
     po: false,
     b: false,
     idc: 2
-  },
+  } /*,
   {
     i: "",
     na: "Akali Supercampeona",
@@ -1949,7 +1949,7 @@ export const LISTADO_ASPECTOS = [
     po: false,
     b: false,
     idc: 20
-  }
+  }*/
 ];
 
 //no se importa
@@ -1973,7 +1973,7 @@ export const LISTADO_NOMBRE_ASPECTOS = [
   "Ahri Estrella del Pop",
   "Ahri K/DA Edición Prestigiosa",
   "Ahri Flor Espiritual",
-  "Ahri Guardiana Estelar",
+  "Ahri Guardiana Estelar" /*,
   "Akali Supercampeona",
   "Akali Luna de Sangre",
   "Akali Cazadora de Cabezas",
@@ -3140,7 +3140,7 @@ export const LISTADO_NOMBRE_ASPECTOS = [
   "Zyra Embrujada",
   "Zyra Aquelarre Edición Prestigiosa",
   "Zyra SKT T1",
-  "Zyra Fuego Salvaje"
+  "Zyra Fuego Salvaje"*/
 ];
 
 export const LISTADO_CAMPEONES = [
@@ -3149,7 +3149,7 @@ export const LISTADO_CAMPEONES = [
   "Ahri",
   "Akali",
   "Alistar",
-  "Amumu",
+  "Amumu" /*,
   "Anivia",
   "Annie",
   "Aphelios",
@@ -3298,5 +3298,5 @@ export const LISTADO_CAMPEONES = [
   "Ziggs",
   "Zilean",
   "Zoe",
-  "Zyra"
+  "Zyra"*/
 ];
