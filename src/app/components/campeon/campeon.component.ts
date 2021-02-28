@@ -27,6 +27,7 @@ import { Aspecto } from "../../models/aspecto.model";
 
 //COMPONENTE CREADO PARA IMPLEMENTAR UN MODELO NO RELACIONAL DE DATOS
 export class CampeonComponent implements OnInit {
+  public titulo_0 = "Titulo del app-campeon";
   public titulo = "Listado de Campeones";
   //hay que importar la clase Campeon de "./models/campeon.model";
   //enviar o borrar datos estaticos (LISTADO_CAMPEONES) a Firebase
