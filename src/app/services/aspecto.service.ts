@@ -11,4 +11,11 @@ export class AspectoService {
   constructor(private afs: AngularFirestore) {
     //vacio
   }
+
+  //pendiente para el 1 de marzo
+
+  //DECIDIR SI VOY A TRABAJAR CON 2 COLECCIONES SEPARADAS (RELACIONAL)
+  //O 1 DENTRO DE LA OTRA (NO RELACIONAL?)
+
+
 }
