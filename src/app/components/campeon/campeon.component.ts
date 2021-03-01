@@ -81,7 +81,7 @@ export class CampeonComponent implements OnInit {
     this.lecturaDatosFirebase();
   }
 
-  //Alfa. Cargar datos en la variables campeones[]
+  //Alfa. Cargar datos de firebase en la variables campeones[]
   lecturaDatosFirebase() {
     this._campeonService.getCampeones().subscribe(campeonesSnapshot => {
       this.campeones = [];
@@ -92,9 +92,12 @@ export class CampeonComponent implements OnInit {
         });
       });
     });
-    if (this.campeones.length > 0) {
+    if ((this.campeones.length = 0)) {
       this.mostrarEnviar = true;
       this.mostrarFormatear = false;
+    } else {
+      this.mostrarEnviar = false;
+      this.mostrarFormatear = true;
     }
   }
 
