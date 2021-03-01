@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 @Component({
-  selector: "lista-aspectos",
-  templateUrl: "./list-aspectos.component.html",
-  styleUrls: ["./lista-aspectos.component.css"]
+  selector: "app-aspectos",
+  templateUrl: "./aspectos.component.html",
+  styleUrls: ["./aspectos.component.css"]
 })
 export class AspectoComponent {}
