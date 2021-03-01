@@ -65,7 +65,7 @@ export class CampeonService {
   }
 
   //(1) Crea un nuevo campeon
-  public createCampeon(data: { nombre: string; url: string }) {
+  public createCampeon(data: { nombre: string; url: string; aspectos: any[];  }) {
     return this.afs.collection("campeones").add(data);
   }
 

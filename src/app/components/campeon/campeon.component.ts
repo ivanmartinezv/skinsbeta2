@@ -60,7 +60,7 @@ export class CampeonComponent implements OnInit {
   public listado_aspectos = LISTADO_ASPECTOS;
 
   //CONTADORES TOTALES
-  public total_aspectos: any /*number*/ = this.listado_aspectos; //.length;
+  public total_aspectos: number = this.listado_aspectos.length;
   public total_obtenibles: number = 0;
   public total_posesion: number = 0;
   public total_botin: number = 0;
@@ -131,8 +131,10 @@ export class CampeonComponent implements OnInit {
     if (this.currentStatus == 1) {
       //CREACION DE DOCUMENTOS
       let data = {
+        //datos del formulario
         nombre: form.nombre,
-        url: form.url
+        url: form.url,
+        aspectos: []
       };
       this._campeonService.createCampeon(data).then(
         () => {
