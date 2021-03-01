@@ -19,9 +19,24 @@ export class CampeonService {
       if (i < 4) {
         console.log(i + 1, ": ", allNombres[i]);
       }
-      let data_temp: { nombre: string; url: string } = {
+      let data_temp: {
+        id: number;
+        nombre: string;
+        url: string;
+        aspectos: any[];
+        cont_obtenible: number;
+        cont_posesion: number; //cuantas tengo
+        //cuantas no tengo se puede calcular (total-tengo)
+        cont_botin: number; //cuantas hay en cont_botin
+      } = {
+        id: i + 1, //necesito el id correlativo para hacer match con los aspectos
         nombre: allNombres[i],
-        url: ""
+        url: "",
+        aspectos: [],
+        cont_obtenible: 0,
+        cont_posesion: 0,
+        //cuantas no tengo se puede calcular (total-tengo)
+        cont_botin: 0
       };
       this.afs.collection("campeones").add(data_temp);
     }

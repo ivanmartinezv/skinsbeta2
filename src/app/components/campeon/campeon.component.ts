@@ -92,10 +92,9 @@ export class CampeonComponent implements OnInit {
         });
       });
     });
-    if (this.campeones.length>0){
-          this.mostrarEnviar = true;
-    this.mostrarFormatear = false;
-
+    if (this.campeones.length > 0) {
+      this.mostrarEnviar = true;
+      this.mostrarFormatear = false;
     }
   }
 

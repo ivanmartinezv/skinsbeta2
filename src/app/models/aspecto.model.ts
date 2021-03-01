@@ -1,6 +1,6 @@
 export class Aspecto {
-  imagen: string;
   nombre_aspecto: string;
+  imagen: string;
   tipo: string;
   precio: number;
   legado: boolean;
@@ -11,8 +11,8 @@ export class Aspecto {
 
   constructor() {}
   /*constructor(
-    i: string,
     na: string,
+    i: string,
     t: string,
     p: number,
     l: boolean,
@@ -21,8 +21,8 @@ export class Aspecto {
     b: boolean,
     idc: number
   ) {
-    this.imagen = i;
     this.nombre_aspecto = na;
+    this.imagen = i;
     this.tipo = t;
     this.precio = p;
     this.legado = l;

@@ -17,7 +17,8 @@
 		<div class="grd-row-col-2">
 			<h3>Agregar nuevo campeon</h3>
 			<form (ngSubmit)="newCampeon(newCampeonForm.value)" [formGroup]="newCampeonForm">
-				<div class="form-group"><input type="hidden" formControlName="id" />
+				<div class="form-group">
+          <input type="hidden" formControlName="id" />
 					<label for="nombre">Nombre del campeon:----</label>
 					<input type="text" formControlName="nombre" />
 					<br>
@@ -37,34 +38,41 @@
 			<div class="campeones_container">
 				<h3>Listado de Campeones</h3>
 				<div class="media" *ngFor="let campeon of campeones">
-					<!--<div class="media-figure">
+					<div class="media-figure">
 						<img [src]="campeon.data.url" />
-          </div>-->
-					<div class="media-body">
-						<p>Nombre: {{campeon.data.nombre}}</p>
-						<div class="btn--group">
-							<button
+          </div>
+						<div class="media-body">
+							<h4>{{campeon.data.id}}.- {{campeon.data.nombre}}</h4>
+							<div class="btn--group">
+								<button
                 class="btn--green btn--s btn1"
                 (click)="editCampeon(campeon.id)"
               >
-                Editar
+                Editar nombre del campeon
               </button>
-							<button
+								<button
                 class="btn--red btn--s btn2"
                 (click)="deleteCampeon(campeon.id)"
               >
-                Eliminar
+                Eliminar campeon
               </button>
+							</div>
+							<br>
+							<h4>Resumen aspectos:</h4>
+							Aspectos obtenibles: {{campeon.data.cont_obtenible}}<br>
+						Aspectos en posesion: {{campeon.data.cont_posesion}}<br>
+						Aspectos en botin: {{campeon.data.cont_botin}}
+							<p>Aspectos: {{campeon.data.aspectos}}</p>
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 
-<!--
+	<!--
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
@@ -81,7 +89,7 @@
 						{{campeon.cont_obtenible}} || En posesión: {{campeon.cont_posesion}} || En botín:
 						{{campeon.cont_botin}}</h4>
 					<!--{{campeones[i].nombre}} - {{campeones[i].aspectos[0].nombre_aspecto}}-->
-<!--<table border="1">
+	<!--<table border="1">
 						<thead>
 							<tr>
 								<th width="30">N°</th>
