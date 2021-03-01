@@ -17,5 +17,5 @@ export class AspectoService {
   //DECIDIR SI VOY A TRABAJAR CON 2 COLECCIONES SEPARADAS (RELACIONAL)
   //O 1 DENTRO DE LA OTRA (NO RELACIONAL?)
 
-
+  //servicios similares a los de campeon.service.ts
 }
