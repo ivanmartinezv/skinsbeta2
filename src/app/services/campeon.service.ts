@@ -16,14 +16,14 @@ export class CampeonService {
   public enviarDatos(nombres_campeones: any) {
     let allNombres = nombres_campeones; //ACA VOY, NO SE SI
     for (let i = 0; i < allNombres.length; i++) {
-      if (i < 4) {
-        console.log(i + 1, ": ", allNombres[i]);
+      if (i < 5) {
+        console.log(i + 1, allNombres[i]);
       }
       let data_temp: {
         id: number;
         nombre: string;
         url: string;
-        aspectos: any[];
+        aspectos: any[]; //coleccion de aspectos
         cont_obtenible: number;
         cont_posesion: number; //cuantas tengo
         //cuantas no tengo se puede calcular (total-tengo)
@@ -32,7 +32,7 @@ export class CampeonService {
         id: i + 1, //necesito el id correlativo para hacer match con los aspectos
         nombre: allNombres[i],
         url: "",
-        aspectos: [],
+        aspectos: [], //new collection() --> algo asi
         cont_obtenible: 0,
         cont_posesion: 0,
         //cuantas no tengo se puede calcular (total-tengo)
@@ -65,7 +65,7 @@ export class CampeonService {
   }
 
   //(1) Crea un nuevo campeon
-  public createCampeon(data: { nombre: string; url: string; aspectos: any[];  }) {
+  public createCampeon(data: { nombre: string; url: string; aspectos: any[] }) {
     return this.afs.collection("campeones").add(data);
   }
 

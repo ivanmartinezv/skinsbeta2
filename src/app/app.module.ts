@@ -7,11 +7,15 @@ import { AppComponent } from "./app.component";
 //import { AppRoutingModule } from "./app-routing.module";
 //firebase
 import { AngularFireModule } from "@angular/fire";
+// if we want to add certain services
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 //componentes
 import { CampeonComponent } from "./components/campeon/campeon.component";
+import { AspectoComponent } from "./components/aspecto/aspectos.component";
 //servicios para BDD
 import { CampeonService } from "./services/campeon.service";
+import { AspectoService } from "./services/aspecto.service";
 //import { CampeonAddComponent } from "./components/campeon/listacampeonadd.component";
 
 @NgModule({
@@ -19,18 +23,21 @@ import { CampeonService } from "./services/campeon.service";
     AppComponent,
     //componentes
     CampeonComponent /*,
-    CampeonAddComponent*/
+    CampeonAddComponent*/,
+    AspectoComponent
   ],
   imports: [
     BrowserModule,
     //AppRoutingModule, //no está este
     AngularFireModule.initializeApp(environment.firebase),
     FormsModule, //formularios
-    ReactiveFormsModule //formularios
+    ReactiveFormsModule, //formularios
+    AngularFirestoreModule
   ],
   providers: [
     //servicios
-    CampeonService
+    CampeonService,
+    AspectoService
   ],
   bootstrap: [AppComponent]
 })
