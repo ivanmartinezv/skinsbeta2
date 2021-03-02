@@ -7,6 +7,23 @@
 .campeones_container .media .media-figure img {
   width: 150px;
   height: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.media {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.media-body {
+  margin-left: 20px;
 }
 
 .btn--group .btn1 {
