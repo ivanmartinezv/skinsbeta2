@@ -6,7 +6,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 })
 
 //CONEXION BDD Y CRUD
-export class AspectoService {
+export class AspectosService {
   //constructor
   constructor(private afs: AngularFirestore) {
     //vacio
