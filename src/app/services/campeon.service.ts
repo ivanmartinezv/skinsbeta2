@@ -64,8 +64,15 @@ export class CampeonService {
     console.log("Coleccion campeones vacía...");
   }
 
-  //(1) Crea un nuevo campeon
-  public createCampeon(data: { nombre: string; url: string; aspectos: any[] }) {
+  //(1) Crea un nuevo campeon en firebase
+  public createCampeon(data: {
+    nombre: string;
+    url: string;
+    aspectos: {}; //era any[], queda RESUELTO
+    cont_obtenible: number;
+    cont_posesion: number;
+    cont_botin: number;
+  }) {
     return this.afs.collection("campeones").add(data);
   }
 
@@ -82,8 +89,12 @@ export class CampeonService {
     return this.afs.collection("campeones").snapshotChanges();
   }
 
-  //(4) Actualiza un campeon
+  //(4) Actualiza un campeon 
+  //en primera instancia borra los datos diferentes al nombre y url
   public updateCampeon(documentId: string, data: any) {
+    let campeonActual = this.getCampeon(documentId);
+    console.log("campeon actual:",campeonActual);
+    console.log("se actualiza:", data);
     return this.afs
       .collection("campeones")
       .doc(documentId)

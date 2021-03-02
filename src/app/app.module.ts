@@ -12,7 +12,7 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 //componentes
 import { CampeonComponent } from "./components/campeon/campeon.component";
-import { AspectoComponent } from "./components/aspecto/aspectos.component";
+import { AspectoComponent } from "./components/aspecto/aspecto.component";
 //servicios para BDD
 import { CampeonService } from "./services/campeon.service";
 import { AspectoService } from "./services/aspecto.service";

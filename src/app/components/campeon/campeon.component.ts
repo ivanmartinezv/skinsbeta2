@@ -32,7 +32,7 @@ export class CampeonComponent implements OnInit {
   //hay que importar la clase Campeon de "./models/campeon.model";
   //enviar o borrar datos estaticos (LISTADO_CAMPEONES) a Firebase
   public enviarDatos: boolean = false;
-  public mostrarEnviar: boolean = true;
+  public mostrarEnviar: boolean = false;
   public borrarDatos: boolean = false;
   public mostrarFormatear: boolean = false;
   //hay que leer los campeones de la constante --> LISTADO_CAMPEONES
@@ -79,10 +79,20 @@ export class CampeonComponent implements OnInit {
     console.log("hola oninit");
     //el ngOnInit es el que invoca al servicio para LEER datos de BDD
     this.lecturaDatosFirebase();
+    let temp_camp;
+    let docid: string = "QNJhFRh9xC5aDEsfRvYD";
+    console.log("largo campeones en el oninit:", this.campeones.length);
+    for (let i = 0; i < this.campeones.length; i++) {
+      if (this.campeones[i].id == docid) {
+        temp_camp = this.campeones[i];
+        console.log("campeon encontrado: ", temp_camp);
+      }
+    }
   }
 
   //Alfa. Cargar datos de firebase en la variables campeones[]
   lecturaDatosFirebase() {
+    console.log("lecturaDatosFirebase");
     this._campeonService.getCampeones().subscribe(campeonesSnapshot => {
       this.campeones = [];
       campeonesSnapshot.forEach((campeonData: any) => {
@@ -92,10 +102,12 @@ export class CampeonComponent implements OnInit {
         });
       });
     });
-    if ((this.campeones.length = 0)) {
+    if (this.campeones.length == 0) {
+      //console.log("largo campeones para el IF:", this.campeones.length);
       this.mostrarEnviar = true;
       this.mostrarFormatear = false;
     } else {
+      //console.log("largo campeones para el ELSE:", this.campeones.length);
       this.mostrarEnviar = false;
       this.mostrarFormatear = true;
     }
@@ -135,13 +147,17 @@ export class CampeonComponent implements OnInit {
       //CREACION DE DOCUMENTOS
       let data = {
         //datos del formulario
-        nombre: form.nombre,
-        url: form.url,
-        aspectos: []
+        nombre: <string>form.nombre,
+        url: <string>form.url,
+        aspectos: {},
+        cont_obtenible: 0,
+        cont_posesion: 0,
+        cont_botin: 0
       };
       this._campeonService.createCampeon(data).then(
         () => {
-          console.log("Documento creado exitósamente!");
+          console.log("Documento creado exitosamente.");
+          //reiniciar formulario
           this.newCampeonForm.setValue({
             nombre: "",
             url: "",
@@ -153,10 +169,10 @@ export class CampeonComponent implements OnInit {
         }
       );
     } else {
-      //EDICION DE DOCUMENTOS
+      //EDICION DE DOCUMENTOS (solo implica modificar nombre y/o url)
       let data = {
-        nombre: form.nombre,
-        url: form.url
+        nombre: <string>form.nombre,
+        url: <string>form.url
       };
       this._campeonService.updateCampeon(documentId, data).then(
         () => {
@@ -166,7 +182,7 @@ export class CampeonComponent implements OnInit {
             url: "",
             id: ""
           });
-          console.log("Documento editado exitósamente");
+          console.log("Documento editado exitosamente.");
         },
         error => {
           console.log(error);
