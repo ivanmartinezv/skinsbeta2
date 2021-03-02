@@ -6,4 +6,6 @@ import { Component } from "@angular/core";
 })
 export class AspectoComponent {
   public titulo: string = "jesse";
+
+  //https://es.stackoverflow.com/questions/229721/angular-firebase-comparar-ids-de-colecciones-distintas-y-si-es-igual-mostrar?rq=1
 }

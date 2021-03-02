@@ -12,33 +12,62 @@ export class CampeonService {
     //vacio
   }
 
+  //(Pre-A) Servicio que cuenta los campeones habidos en firebase
+  public contarCampeones(): number {
+    this.afs
+      .collection("campeones")
+      .valueChanges()
+      .subscribe(cantidad => {
+        //console.log("hay ", cantidad.length, " campeones");
+        return cantidad.length;
+      });
+    return 0;
+  }
+
+  verificaNombre(nombre: string): boolean {
+    /*hacer el getCampeonbyNombre*/
+
+    if (true) {
+      //si el nombre ya existe
+      return false; //no se agrega
+    } else {
+      //si no existe
+      return true; //se agrega
+    }
+  }
+
   //A. Enviar nombres de campeones a firebase
   public enviarDatos(nombres_campeones: any) {
     let allNombres = nombres_campeones; //ACA VOY, NO SE SI
     for (let i = 0; i < allNombres.length; i++) {
-      if (i < 5) {
-        console.log(i + 1, allNombres[i]);
+      /*VERIFICAR SI EL NOMBRE YA SE ENCUENTRA Y EVITAR AGREGAR DUPLICADOS*/
+
+      if (this.verificaNombre(allNombres[i])) {
+        if (i < 5) {
+          console.log(i + 1, ":", allNombres[i]);
+        }
+        /*AQUI POR CADA CAMPEON, SE PODRIA RECORRER TODO EL ARRAY DE ASPECTOS Y TRAER LOS QUE LE PERTENECEN Y ASIGNARLO AL ARRAY aspectos CON EL push()*/
+        let data_temp: {
+          id: number;
+          nombre: string;
+          url: string;
+          aspectos: any[]; //coleccion de aspectos
+          cont_obtenible: number;
+          cont_posesion: number; //cuantas tengo
+          //cuantas no tengo se puede calcular (total-tengo)
+          cont_botin: number; //cuantas hay en cont_botin
+        } = {
+          id: i + 1, //id correlativo para hacer match con los aspectos
+          nombre: allNombres[i],
+          url: "",
+          aspectos: [], //new collection() --> algo asi
+          cont_obtenible: 0,
+          cont_posesion: 0,
+          //cuantas no tengo se puede calcular (total-tengo)
+          cont_botin: 0
+        };
+        this.afs.collection("campeones").add(data_temp);
       }
-      let data_temp: {
-        id: number;
-        nombre: string;
-        url: string;
-        aspectos: any[]; //coleccion de aspectos
-        cont_obtenible: number;
-        cont_posesion: number; //cuantas tengo
-        //cuantas no tengo se puede calcular (total-tengo)
-        cont_botin: number; //cuantas hay en cont_botin
-      } = {
-        id: i + 1, //necesito el id correlativo para hacer match con los aspectos
-        nombre: allNombres[i],
-        url: "",
-        aspectos: [], //new collection() --> algo asi
-        cont_obtenible: 0,
-        cont_posesion: 0,
-        //cuantas no tengo se puede calcular (total-tengo)
-        cont_botin: 0
-      };
-      this.afs.collection("campeones").add(data_temp);
     }
     console.log("servicio: datos enviados a firebase");
   }
@@ -86,14 +115,16 @@ export class CampeonService {
 
   //(3) Obtiene todos los campeones
   public getCampeones() {
-    return this.afs.collection("campeones").snapshotChanges();
+    let champs = this.afs.collection("campeones").snapshotChanges();
+    //console.log("servicio: getcampeones() -->", champs);
+    return champs;
   }
 
-  //(4) Actualiza un campeon 
+  //(4) Actualiza un campeon
   //en primera instancia borra los datos diferentes al nombre y url
   public updateCampeon(documentId: string, data: any) {
     let campeonActual = this.getCampeon(documentId);
-    console.log("campeon actual:",campeonActual);
+    console.log("campeon actual:", campeonActual);
     console.log("se actualiza:", data);
     return this.afs
       .collection("campeones")
