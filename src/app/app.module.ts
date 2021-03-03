@@ -12,10 +12,10 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 //componentes
 import { CampeonComponent } from "./components/campeon/campeon.component";
-import { AspectosComponent } from "./components/aspecto/aspecto.component";
+import { AspectoComponent } from "./components/aspecto/aspecto.component";
 //servicios para BDD
 import { CampeonService } from "./services/campeon.service";
-import { AspectosService } from "./services/aspecto.service";
+import { AspectoService } from "./services/aspecto.service";
 //import { CampeonAddComponent } from "./components/campeon/listacampeonadd.component";
 
 @NgModule({
@@ -24,7 +24,7 @@ import { AspectosService } from "./services/aspecto.service";
     //componentes
     CampeonComponent /*,
     CampeonAddComponent*/,
-    AspectosComponent
+    AspectoComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +37,7 @@ import { AspectosService } from "./services/aspecto.service";
   providers: [
     //servicios
     CampeonService,
-    AspectosService
+    AspectoService
   ],
   bootstrap: [AppComponent]
 })

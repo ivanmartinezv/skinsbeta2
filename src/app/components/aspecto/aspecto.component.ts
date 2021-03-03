@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
   templateUrl: "./aspecto.component.html",
   styleUrls: ["./aspecto.component.css"]
 })
-export class AspectosComponent {
+export class AspectoComponent {
   public titulo_0 = "Titulo del app-aspecto";
   public titulo = "Listado de Aspectos";
 
