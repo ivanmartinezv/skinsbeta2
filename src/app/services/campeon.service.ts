@@ -12,6 +12,42 @@ export class CampeonService {
     //vacio
   }
 
+ //A. Enviar nombres de campeones a firebase
+  public enviarDatos(nombres_campeones: any) {
+    let allNombres = nombres_campeones; //ACA VOY, NO SE SI
+    for (let i = 0; i < allNombres.length; i++) {
+      /*VERIFICAR SI EL NOMBRE YA SE ENCUENTRA Y EVITAR AGREGAR DUPLICADOS*/
+
+      if (this.verificaNombre(allNombres[i])) {
+        if (i < 5) {
+          console.log(i + 1, ":", allNombres[i]);
+        }
+        /*AQUI POR CADA CAMPEON, SE PODRIA RECORRER TODO EL ARRAY DE ASPECTOS Y TRAER LOS QUE LE PERTENECEN Y ASIGNARLO AL ARRAY aspectos CON EL push()*/
+        let data_temp: {
+          id: number;
+          nombre: string;
+          url: string;
+          aspectos: any[]; //coleccion de aspectos
+          cont_obtenible: number;
+          cont_posesion: number; //cuantas tengo
+          //cuantas no tengo se puede calcular (total-tengo)
+          cont_botin: number; //cuantas hay en cont_botin
+        } = {
+          id: i + 1, //id correlativo para hacer match con los aspectos
+          nombre: allNombres[i],
+          url: "",
+          aspectos: [], //new collection() --> algo asi
+          cont_obtenible: 0,
+          cont_posesion: 0,
+          //cuantas no tengo se puede calcular (total-tengo)
+          cont_botin: 0
+        };
+        this.afs.collection("campeones").add(data_temp);
+      }
+    }
+    console.log("servicio: datos enviados a firebase");
+  }
+
   //Servicio que formatea la coleccion Campeones en FB
   public formatearBDD(campeones: any) {
     console.log("que estoy recibiendo del componente??:", campeones);
@@ -51,41 +87,7 @@ export class CampeonService {
     }
   }
 
-  //A. Enviar nombres de campeones a firebase
-  public enviarDatos(nombres_campeones: any) {
-    let allNombres = nombres_campeones; //ACA VOY, NO SE SI
-    for (let i = 0; i < allNombres.length; i++) {
-      /*VERIFICAR SI EL NOMBRE YA SE ENCUENTRA Y EVITAR AGREGAR DUPLICADOS*/
-
-      if (this.verificaNombre(allNombres[i])) {
-        if (i < 5) {
-          console.log(i + 1, ":", allNombres[i]);
-        }
-        /*AQUI POR CADA CAMPEON, SE PODRIA RECORRER TODO EL ARRAY DE ASPECTOS Y TRAER LOS QUE LE PERTENECEN Y ASIGNARLO AL ARRAY aspectos CON EL push()*/
-        let data_temp: {
-          id: number;
-          nombre: string;
-          url: string;
-          aspectos: any[]; //coleccion de aspectos
-          cont_obtenible: number;
-          cont_posesion: number; //cuantas tengo
-          //cuantas no tengo se puede calcular (total-tengo)
-          cont_botin: number; //cuantas hay en cont_botin
-        } = {
-          id: i + 1, //id correlativo para hacer match con los aspectos
-          nombre: allNombres[i],
-          url: "",
-          aspectos: [], //new collection() --> algo asi
-          cont_obtenible: 0,
-          cont_posesion: 0,
-          //cuantas no tengo se puede calcular (total-tengo)
-          cont_botin: 0
-        };
-        this.afs.collection("campeones").add(data_temp);
-      }
-    }
-    console.log("servicio: datos enviados a firebase");
-  }
+ 
 
   //(1) Crea un nuevo campeon en firebase
   public createCampeon(data: {

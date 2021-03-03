@@ -49,7 +49,7 @@ export class CampeonComponent implements OnInit {
   public allCampeones: any = [];
 
   //(I) Array que contendrá los datos de firebase
-  public campeones: any[]; //no se usa Campeon[]
+  public campeones: any[] =[] ; //no se usa Campeon[]
   public cant_campeones: number;
   //(II) atributos para editar productos
   public documentId = null;
@@ -89,18 +89,53 @@ export class CampeonComponent implements OnInit {
     console.log("ngOnInit()");
     //el ngOnInit es el que invoca al servicio para LEER datos de BDD
     this.lecturaDatosFirebase();
-    
-    
-    
-    //1. lo primero es formatear la coleccion de campeones en firebase
+
+    //formatear la coleccion de campeones en firebase
     //this.formatearBDD();
-    //2. como no hay datos en FB, no hay campeones en la aplicacion
+    //como no hay datos en FB, no hay campeones en la aplicacion
     //this.campeones = [];
 
     /*console.log("antes de lectura:");
     this.contarCampeones();*/
     /*console.log("despues de lectura:");
     this.contarCampeones();*/
+  }
+
+  /*###### FUNCIONES ######*/
+
+  //Funcion que lee los datos de FB y los almacena en la variable campeones[]
+  lecturaDatosFirebase() {
+    console.log("lecturaDatosFirebase()");
+    //en esta llamada al servicio, si no hay datos en firebase
+    //entonces this.campeones es undefined
+    this._campeonService.getCampeones().subscribe(
+      campeonesSnapshot => {
+        //inicializa el arreglo de campeones como vacio
+        this.campeones = [];
+        //itera por cada campeon en firebase
+        campeonesSnapshot.forEach((campeonData: any) => {
+          //agrega el campeon al arreglo
+          this.campeones.push({
+            id: campeonData.payload.doc.id, //documentId del documento
+            data: campeonData.payload.doc.data() //datos del data
+          });
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    if (this.campeones == null) {
+      console.log("campeones es null");
+      //this.mostrarEnviar = true;
+      //this.mostrarFormatear = false;
+    } else {
+      if (this.campeones.length > 0) {
+        console.log("campeones leidos de firebase:", this.campeones.length);
+        //this.mostrarEnviar = false;
+        //this.mostrarFormatear = true;
+      }
+    }
   }
 
   //Este metodo cambia a true el booleano y elimina datos estaticos enviados, pero que se encuentran en this.campeones
@@ -131,43 +166,6 @@ export class CampeonComponent implements OnInit {
   contarCampeones() {
     this.cant_campeones = this._campeonService.contarCampeones();
     console.log("Cantidad actual de campeones: ", this.cant_campeones);
-  }
-
-  //Alfa. Cargar datos de firebase en la variables campeones[]
-
-  lecturaDatosFirebase() {
-    console.log("lecturaDatosFirebase");
-    //en esta llamada al servicio, si no hay datos en firebase
-    //entonces this.campeones es undefined
-    this._campeonService.getCampeones().subscribe(
-      campeonesSnapshot => {
-        //inicializa el arreglo de campeones como vacio
-        this.campeones = [];
-        //itera por cada campeon en firebase
-        campeonesSnapshot.forEach((campeonData: any) => {
-          //agrega el campeon al arreglo
-          this.campeones.push({
-            id: campeonData.payload.doc.id, //documentId del documento
-            data: campeonData.payload.doc.data() //datos del data
-          });
-        });
-      },
-      err => {
-        console.log(err);
-      }
-    );
-
-    if (this.campeones == null) {
-      console.log("campeones es null");
-      //this.mostrarEnviar = true;
-      //this.mostrarFormatear = false;
-    } else {
-      if (this.campeones.length > 0) {
-        console.log("campeones leidos de firebase:", this.campeones.length);
-        //this.mostrarEnviar = false;
-        //this.mostrarFormatear = true;
-      }
-    }
   }
 
   //A. Este metodo cambia a true el booleano y envia los datos ESTATICOS a firebase
