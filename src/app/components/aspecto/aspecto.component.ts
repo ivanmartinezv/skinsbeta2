@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 @Component({
   selector: "app-aspecto",
-  templateUrl: "./aspecto.component.html",
-  styleUrls: ["./aspecto.component.css"]
+  templateUrl:
+    "./aspecto.component.html" /*,
+  styleUrls: ["./aspectos.component.css"]*/
 })
 export class AspectoComponent {
   public titulo_0 = "Titulo del app-aspecto";
