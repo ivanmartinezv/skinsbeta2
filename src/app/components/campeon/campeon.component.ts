@@ -19,6 +19,9 @@ import {
 } from "../../models/listado.global";
 import { Aspecto } from "../../models/aspecto.model";
 
+//CONSTANTE no relacional con todos los datos
+import { todosLosCampeones } from "../../models/datos.model";
+
 @Component({
   selector: "app-campeon",
   templateUrl: "./campeon.component.html",
@@ -33,7 +36,7 @@ export class CampeonComponent implements OnInit {
 
   //Para mostrar los botones iniciales
   public mostrarEnviar: boolean = true; //siempre se muestra pero se ocultará
-  public mostrarFormatear: boolean = true; //siempre se muestra pero se ocultará
+  public mostrarFormatear: boolean = false; //siempre se muestra pero se ocultará
 
   //enviar o borrar datos estaticos (LISTADO_CAMPEONES) a Firebase
   public enviarDatos: boolean = false;
@@ -46,10 +49,12 @@ export class CampeonComponent implements OnInit {
   public allCampeones: any = [];
 
   //(I) Array que contendrá los datos de firebase
-  public campeones: any[] = null; //no se usa Campeon[]
+  public campeones: any[]; //no se usa Campeon[]
   public cant_campeones: number;
   //(II) atributos para editar productos
   public documentId = null;
+
+  public todos_campeones: any[] = todosLosCampeones; //datos.model.ts
 
   /*La app maneja 2 estados, currentStatus = 0 -> la app se encuentra en modo de creación?? de documentos, ó currentStatus = 1 -> la app se encuentra en modo de edición?? de documentos. */
   public currentStatus = 1;
@@ -82,13 +87,38 @@ export class CampeonComponent implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit()");
-    console.log("antes de lectura:");
-    this.contarCampeones();
     //el ngOnInit es el que invoca al servicio para LEER datos de BDD
     this.lecturaDatosFirebase();
-    console.log("despues de lectura:");
-    this.contarCampeones();
-    /*let temp_camp;
+    
+    
+    
+    //1. lo primero es formatear la coleccion de campeones en firebase
+    //this.formatearBDD();
+    //2. como no hay datos en FB, no hay campeones en la aplicacion
+    //this.campeones = [];
+
+    /*console.log("antes de lectura:");
+    this.contarCampeones();*/
+    /*console.log("despues de lectura:");
+    this.contarCampeones();*/
+  }
+
+  //Este metodo cambia a true el booleano y elimina datos estaticos enviados, pero que se encuentran en this.campeones
+  formatearBDD() {
+    this.borrarDatos = true;
+    console.log("Formateando BDD");
+    //no es necesario enviar los campeones, es solo la orden
+    //console.log("que estoy enviando al servicio??", this.campeones);
+    this._campeonService.formatearBDD(this.campeones);
+    this.enviarDatos = false;
+    console.log("ya no se eliminan datos.");
+    this.lecturaDatosFirebase();
+    this.mostrarEnviar = true;
+    this.mostrarFormatear = false;
+  }
+
+  /*  CODIGO PARA EL GETCAMPEONBYID
+    let temp_camp;
     let docid: string = "QNJhFRh9xC5aDEsfRvYD";
     for (let i = 0; i < this.campeones.length; i++) {
       if (this.campeones[i].id == docid) {
@@ -96,7 +126,6 @@ export class CampeonComponent implements OnInit {
         console.log("campeon encontrado: ", temp_camp);
       }
     }*/
-  }
 
   //(Pre-A) Funcion que cuenta los campeones habidos en firebase
   contarCampeones() {
@@ -152,21 +181,6 @@ export class CampeonComponent implements OnInit {
     }
     this.mostrarEnviar = false;
     this.mostrarFormatear = true;
-  }
-
-  //B. Este metodo cambia a true el booleano y elimina datos enviados por A. pero que se encuentran en this.campeones
-  formatearBDD() {
-    this.borrarDatos = true;
-    console.log("formateando BDD");
-    if (this.borrarDatos) {
-      console.log("que estoy enviando??", this.campeones);
-      this._campeonService.formatearBDD(this.campeones);
-      this.enviarDatos = false;
-      console.log("ya no se eliminan datos.");
-      this.lecturaDatosFirebase();
-    }
-    this.mostrarEnviar = true;
-    this.mostrarFormatear = false;
   }
 
   public newCampeon(form, documentId = this.documentId) {

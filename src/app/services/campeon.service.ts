@@ -12,6 +12,21 @@ export class CampeonService {
     //vacio
   }
 
+  //Servicio que formatea la coleccion Campeones en FB
+  public formatearBDD(campeones: any) {
+    console.log("que estoy recibiendo del componente??:", campeones);
+    console.log("campeones.length: ", campeones.length);
+    //por cada coincidencia en el documentId del campeon, lo elimina
+    console.log("campeones[0] tiene id y data? ?:", campeones[0]);
+    for (let i = 0; i < campeones.length; i++) {
+      this.afs
+        .collection("campeones")
+        .doc(campeones[i].id)
+        .delete();
+    }
+    console.log("Coleccion campeones vacía...");
+  }
+
   //(Pre-A) Servicio que cuenta los campeones habidos en firebase
   public contarCampeones(): number {
     this.afs
@@ -70,27 +85,6 @@ export class CampeonService {
       }
     }
     console.log("servicio: datos enviados a firebase");
-  }
-
-  //B. Formatear collection "campeones_temp"
-  public formatearBDD(campeones: any) {
-    console.log("que estoy recibiendo??", campeones);
-    console.log("campeones.length: ", campeones.length);
-    //por cada coincidencia en el documentId del campeon, lo elimina
-    console.log("campeones[0] tiene id y data? ?:", campeones[0]);
-    console.log("campeones[1] tiene id y data? ?:", campeones[1]);
-    console.log("campeones[2] tiene id y data? ?:", campeones[2]);
-    for (let i = 0; i < campeones.length; i++) {
-      if (i < 5) {
-        console.log("nombre a borrar: ", campeones[i].data.nombre);
-        console.log("id a borrar: ", campeones[i].id);
-      }
-      this.afs
-        .collection("campeones")
-        .doc(campeones[i].id)
-        .delete();
-    }
-    console.log("Coleccion campeones vacía...");
   }
 
   //(1) Crea un nuevo campeon en firebase

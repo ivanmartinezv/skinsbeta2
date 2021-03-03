@@ -1,76 +1,63 @@
 export let aspectos_aatrox = [
+  //quitar imagen y legado
   {
-    i: "",
     na: "Aatrox Luna de Sangre",
     t: "Epica",
     p: 1350,
-    l: false,
     o: true,
     po: false,
     b: false,
     idc: 1
   },
   {
-    i: "",
     na: "Aatrox Justiciero",
     t: "Barata",
     p: 975,
-    l: false,
     o: true,
     po: true,
     b: false,
     idc: 1
   },
   {
-    i: "",
     na: "Aatrox Mecha",
     t: "Epica",
     p: 1350,
-    l: false,
     o: true,
     po: true,
     b: false,
     idc: 1
   },
   {
-    i: "",
     na: "Aatrox Odisea",
     t: "Epica",
     p: 1350,
-    l: false,
     o: true,
     po: false,
     b: false,
     idc: 1
   },
   {
-    i: "",
     na: "Aatrox Luna de Sangre Edición Prestigiosa",
     t: "Prestigiosa",
     p: 0,
-    l: false,
     o: false,
     po: false,
     b: false,
     idc: 1
   },
   {
-    i: "",
     na: "Aatrox Cazador Marino",
     t: "Barata",
     p: 750,
-    l: false,
     o: true,
     po: false,
     b: false,
     idc: 1
   },
   {
-    i: "",
     na: "Aatrox Victorioso",
     t: "Victoriosa",
     p: 0,
-    l: false,
     o: false,
     po: false,
     b: false,
