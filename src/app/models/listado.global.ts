@@ -3290,11 +3290,11 @@ export const LISTADO_CAMPEONES = [
 
 export const LISTADO_IMAGENES = [
   //public campeones: Array<any> = [
-  "Aatrox",
-  "Ahri",
-  "Akali",
+  "",
+  "",
+  "",
   "https://www.mobafire.com/images/avatars/alistar-classic.png",
-  "Amumu" /*,
+  "" /*,
   "Anivia",
   "Annie",
   "Aphelios",

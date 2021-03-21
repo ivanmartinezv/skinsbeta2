@@ -6,22 +6,24 @@ import {
   Validators /*, FormBuilder*/
 } from "@angular/forms";
 //import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+
 //modelos
 import { Campeon } from "../../models/campeon.model";
+import { Aspecto } from "../../models/aspecto.model";
+
 //servicios
 import { CampeonService } from "../../services/campeon.service";
+import { AspectoService } from "../../services/aspecto.service";
 
-//import { Aspecto } from "../../models/aspecto.model";
+//constantes
 import {
   aspectos_aatrox,
   LISTADO_CAMPEONES,
   LISTADO_ASPECTOS,
   LISTADO_IMAGENES
 } from "../../models/listado.global";
-import { Aspecto } from "../../models/aspecto.model";
 
 //CONSTANTE no relacional con todos los datos
-//import { todosLosCampeones } from "../../models/datos.model";
 import { todosLosCampeones } from "../../models/datos.model";
 
 @Component({
@@ -33,7 +35,7 @@ import { todosLosCampeones } from "../../models/datos.model";
 //COMPONENTE CREADO PARA IMPLEMENTAR UN MODELO NO RELACIONAL DE DATOS
 export class CampeonComponent implements OnInit {
   public titulo_0 = "Titulo del app-campeon";
-  public titulo = "Listado de Campeones";
+  public titulo = "Listado de Campeones y Aspectos";
   //hay que importar la clase Campeon de "./models/campeon.model";
 
   //Para mostrar los botones iniciales
@@ -68,6 +70,15 @@ export class CampeonComponent implements OnInit {
     //al enviar los datos del formulario, hay que agregar los CONTADORES
   });
 
+  //formulario de nuevo aspecto
+  public currentStatus_skin = 1;
+  public newAspectoForm = new FormGroup({
+    nombre: new FormControl("", Validators.required),
+    url: new FormControl("", Validators.required),
+    id: new FormControl("")
+    //al enviar los datos del formulario, hay que modificar los CONTADORES
+  });
+
   /*CHALLA*/
   public aspectos_de_aatrox: {} = aspectos_aatrox;
   public listado_aspectos = LISTADO_ASPECTOS;
@@ -79,9 +90,17 @@ export class CampeonComponent implements OnInit {
   public total_botin: number = 0;
   /*FIN CHALLA*/
 
-  constructor(private _campeonService: CampeonService) {
+  constructor(
+    private _campeonService: CampeonService,
+    private _aspectoService: AspectoService
+  ) {
     //funcion con los datos que trae el servicio
     this.newCampeonForm.setValue({
+      id: "",
+      nombre: "",
+      url: ""
+    });
+    this.newAspectoForm.setValue({
       id: "",
       nombre: "",
       url: ""
@@ -187,6 +206,7 @@ export class CampeonComponent implements OnInit {
     this.mostrarFormatear = true;
   }
 
+  //CRUD DE CAMPEON
   public newCampeon(form, documentId = this.documentId) {
     console.log(`Status: ${this.currentStatus}`);
     if (this.currentStatus == 1) {
@@ -265,6 +285,60 @@ export class CampeonComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  //CRUD DE ASPECTO
+  public newAspecto(form, documentId = this.documentId) {
+    console.log(`Status: ${this.currentStatus_skin}`);
+    if (this.currentStatus_skin == 1) {
+      //CREACION DE DOCUMENTOS
+      let data = {
+        //datos del formulario
+        nombre: <string>form.nombre,
+        url: <string>form.url,
+        aspectos: {},
+        cont_obtenible: 0,
+        cont_posesion: 0,
+        cont_botin: 0
+      };
+      this._campeonService.createCampeon(data).then(
+        () => {
+          console.log("Documento creado exitosamente.");
+          //reiniciar formulario
+          this.newCampeonForm.setValue({
+            nombre: "",
+            url: "",
+            id: ""
+          });
+          //si la bdd está vacia y agrego el primer campeon
+          this.mostrarEnviar = false; //no deberia enviar
+          this.mostrarFormatear = true; //permito formatear
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    } else {
+      //EDICION DE DOCUMENTOS (solo implica modificar nombre y/o url)
+      let data = {
+        nombre: <string>form.nombre,
+        url: <string>form.url
+      };
+      this._campeonService.updateCampeon(documentId, data).then(
+        () => {
+          this.currentStatus_skin = 1;
+          this.newCampeonForm.setValue({
+            nombre: "",
+            url: "",
+            id: ""
+          });
+          console.log("Documento editado exitosamente.");
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   //FIN METODOS UTILES

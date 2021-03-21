@@ -1,4 +1,4 @@
-export let todosLosCampeones = [
+export const todosLosCampeones = [
   {
     id: 1,
     nombre: "Aatrox",
