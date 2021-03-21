@@ -15,11 +15,13 @@ import { CampeonService } from "../../services/campeon.service";
 import {
   aspectos_aatrox,
   LISTADO_CAMPEONES,
-  LISTADO_ASPECTOS
+  LISTADO_ASPECTOS,
+  LISTADO_IMAGENES
 } from "../../models/listado.global";
 import { Aspecto } from "../../models/aspecto.model";
 
 //CONSTANTE no relacional con todos los datos
+//import { todosLosCampeones } from "../../models/datos.model";
 import { todosLosCampeones } from "../../models/datos.model";
 
 @Component({
@@ -44,12 +46,13 @@ export class CampeonComponent implements OnInit {
 
   //hay que leer los campeones de la constante --> LISTADO_CAMPEONES
   public listado_nombres: any = LISTADO_CAMPEONES;
+  public listado_imagenes: any = LISTADO_IMAGENES;
   public total_nombres: number = LISTADO_CAMPEONES.length;
   //array de campeones
   public allCampeones: any = [];
 
   //(I) Array que contendrá los datos de firebase
-  public campeones: any[] =[] ; //no se usa Campeon[]
+  public campeones: any[] = []; //no se usa Campeon[]
   public cant_campeones: number;
   //(II) atributos para editar productos
   public documentId = null;
@@ -173,7 +176,10 @@ export class CampeonComponent implements OnInit {
     console.log("Cant. estática de campeones: ", this.listado_nombres.length);
     //la primera vez es true
     if (this.enviarDatos) {
-      this._campeonService.enviarDatos(this.listado_nombres);
+      this._campeonService.enviarDatos(
+        this.listado_nombres,
+        this.listado_imagenes
+      );
       this.enviarDatos = false;
       console.log("ya no se envian datos.");
     }

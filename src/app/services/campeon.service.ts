@@ -13,8 +13,9 @@ export class CampeonService {
   }
 
  //A. Enviar nombres de campeones a firebase
-  public enviarDatos(nombres_campeones: any) {
+  public enviarDatos(nombres_campeones: any, imagenes_campeones: any) {
     let allNombres = nombres_campeones; //ACA VOY, NO SE SI
+    let allImagenes = imagenes_campeones;
     for (let i = 0; i < allNombres.length; i++) {
       /*VERIFICAR SI EL NOMBRE YA SE ENCUENTRA Y EVITAR AGREGAR DUPLICADOS*/
 
@@ -35,7 +36,7 @@ export class CampeonService {
         } = {
           id: i + 1, //id correlativo para hacer match con los aspectos
           nombre: allNombres[i],
-          url: "",
+          url: allImagenes[i],
           aspectos: [], //new collection() --> algo asi
           cont_obtenible: 0,
           cont_posesion: 0,
