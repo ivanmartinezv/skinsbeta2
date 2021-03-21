@@ -13,7 +13,7 @@ import { Aspecto } from "../../models/aspecto.model";
 
 //servicios
 import { CampeonService } from "../../services/campeon.service";
-import { AspectoService } from "../../services/aspecto.service";
+//import { AspectoService } from "../../services/aspecto.service";
 
 //constantes
 import {
@@ -91,8 +91,8 @@ export class CampeonComponent implements OnInit {
   /*FIN CHALLA*/
 
   constructor(
-    private _campeonService: CampeonService,
-    private _aspectoService: AspectoService
+    private _campeonService: CampeonService /*,
+    private _aspectoService: AspectoService*/
   ) {
     //funcion con los datos que trae el servicio
     this.newCampeonForm.setValue({
